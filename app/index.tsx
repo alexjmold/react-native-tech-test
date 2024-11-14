@@ -1,6 +1,12 @@
-import { Text, View } from "react-native";
+import { View, Text } from "react-native";
+import { useState } from "react";
+
+import IntroScreen from "@/components/screens/IntroScreen";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 export default function Index() {
+  const [showIntro, setShowIntro] = useState(true);
+
   return (
     <View
       style={{
@@ -9,7 +15,15 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      {showIntro ? (
+        <Animated.View exiting={FadeOut}>
+          <IntroScreen onAnimationComplete={() => setShowIntro(false)} />
+        </Animated.View>
+      ) : (
+        <Animated.View entering={FadeIn}>
+          <Text>Welcome!</Text>
+        </Animated.View>
+      )}
     </View>
   );
 }
