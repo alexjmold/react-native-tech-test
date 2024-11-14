@@ -38,13 +38,3 @@ export const fetchRandomCocktails = async (count = 10) => {
     return { error: "Error getting cocktails" };
   }
 };
-
-// export const fetchCocktails = async () => {
-//   try {
-//     const response = await axios.get(COCKTAILS_API_URL);
-//     console.log(response);
-//     return { data: response };
-//   } catch (error) {
-//     return { error: "Error getting cocktails" };
-//   }
-// };
