@@ -1,29 +1,29 @@
-import { View, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useState } from "react";
 
 import IntroScreen from "@/components/screens/IntroScreen";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import Animated, { FadeIn } from "react-native-reanimated";
+import CocktailListScreen from "@/components/screens/CocktailListScreen";
 
 export default function Index() {
   const [showIntro, setShowIntro] = useState(true);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <View style={styles.container}>
       {showIntro ? (
-        <Animated.View exiting={FadeOut}>
-          <IntroScreen onAnimationComplete={() => setShowIntro(false)} />
-        </Animated.View>
+        <IntroScreen onAnimationComplete={() => setShowIntro(false)} />
       ) : (
         <Animated.View entering={FadeIn}>
-          <Text>Welcome!</Text>
+          <CocktailListScreen />
         </Animated.View>
       )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#FFEBEF",
+    flex: 1,
+  },
+});

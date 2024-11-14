@@ -8,7 +8,6 @@ import Animated, {
   useDerivedValue,
   useSharedValue,
   withDelay,
-  withRepeat,
   withSequence,
   withTiming,
 } from "react-native-reanimated";
@@ -86,7 +85,7 @@ export default function IntroScreen({ onAnimationComplete }: IntroScreenProps) {
 
     setTimeout(() => {
       onAnimationComplete();
-    }, 6000);
+    }, 5500);
   }, []);
 
   const wavePath = useDerivedValue(() => {
