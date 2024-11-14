@@ -33,10 +33,15 @@ export default function IntroScreen({ onAnimationComplete }: IntroScreenProps) {
   const martiniY = useSharedValue(100);
   const martiniOpacity = useSharedValue(0);
   const waveHeightOffset = useSharedValue(height - height / 3);
+  const containerY = useSharedValue(0);
 
   const martiniStyles = useAnimatedStyle(() => ({
     opacity: martiniOpacity.value,
     transform: [{ translateY: martiniY.value }],
+  }));
+
+  const containerStyles = useAnimatedStyle(() => ({
+    transform: [{ translateY: containerY.value }],
   }));
 
   useEffect(() => {
@@ -74,9 +79,14 @@ export default function IntroScreen({ onAnimationComplete }: IntroScreenProps) {
       )
     );
 
+    containerY.value = withDelay(
+      4000,
+      withTiming(-height, { duration: 1000, easing: Easing.in(Easing.sin) })
+    );
+
     setTimeout(() => {
       onAnimationComplete();
-    }, 10000);
+    }, 6000);
   }, []);
 
   const wavePath = useDerivedValue(() => {
@@ -102,7 +112,7 @@ export default function IntroScreen({ onAnimationComplete }: IntroScreenProps) {
   }, [waveOffset]);
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={{ ...styles.container, ...containerStyles }}>
       <Canvas style={{ width, height }}>
         <Path path={wavePath} color={WAVE_PATH_COLOUR} />
       </Canvas>
@@ -111,7 +121,7 @@ export default function IntroScreen({ onAnimationComplete }: IntroScreenProps) {
           <Martini color="white" size={120} />
         </Animated.View>
       </View>
-    </View>
+    </Animated.View>
   );
 }
 
