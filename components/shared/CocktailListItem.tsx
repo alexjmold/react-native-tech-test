@@ -4,6 +4,7 @@ import { CocktailSearchResult } from "@/types";
 import { useTheme } from "../providers/ThemeProvider";
 import CocktailDisplayType from "./CocktailDisplayType";
 import { Link } from "expo-router";
+import CocktailCategory from "./CocktailCategory";
 
 interface CocktailListItemProps {
   cocktail: CocktailSearchResult;
@@ -32,9 +33,7 @@ export default function CocktailListItem({ cocktail }: CocktailListItemProps) {
           <Text numberOfLines={1} style={styles.description}>
             {cocktail.strInstructions}
           </Text>
-          <Text style={{ ...styles.category, borderColor: theme.colors.dark }}>
-            {cocktail.strCategory}
-          </Text>
+          <CocktailCategory category={cocktail.strCategory} />
         </View>
         <CocktailDisplayType
           glass={cocktail.strGlass}
@@ -74,16 +73,5 @@ const styles = StyleSheet.create({
     width: "auto",
     fontSize: 14,
     marginBottom: 10,
-  },
-  category: {
-    alignSelf: "flex-start",
-    paddingVertical: 4,
-    paddingHorizontal: 12,
-    letterSpacing: 1,
-    fontSize: 11,
-    borderRadius: 20,
-    marginBottom: 5,
-    flexShrink: 1,
-    borderWidth: 1,
   },
 });
