@@ -11,7 +11,7 @@ interface CocktailListItemProps {
 }
 
 export default function CocktailListItem({ cocktail }: CocktailListItemProps) {
-  const theme = useTheme();
+  const { colors } = useTheme();
 
   return (
     <Link
@@ -22,11 +22,14 @@ export default function CocktailListItem({ cocktail }: CocktailListItemProps) {
       asChild
     >
       <Pressable
-        style={{ ...styles.pressable, backgroundColor: theme.colors.light }}
+        style={{
+          ...styles.pressable,
+          backgroundColor: colors.light,
+        }}
       >
         <Image
           source={{ uri: cocktail.strDrinkThumb }}
-          style={{ ...styles.thumbnail, borderColor: theme.colors.lightGrey }}
+          style={{ ...styles.thumbnail, borderColor: colors.dark }}
         />
         <View style={styles.contentContainer}>
           <Text style={styles.title}>{cocktail.strDrink}</Text>
@@ -54,6 +57,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 24,
     gap: 12,
+
+    shadowColor: "rgba(0, 0, 0, 0.3)",
+    shadowOffset: { width: -2, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   thumbnail: {
     width: 80,
