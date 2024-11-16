@@ -4,12 +4,16 @@ import { useState } from "react";
 import IntroScreen from "@/components/screens/IntroScreen";
 import Animated, { FadeIn } from "react-native-reanimated";
 import CocktailListScreen from "@/components/screens/CocktailListScreen";
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 export default function Index() {
+  const theme = useTheme();
   const [showIntro, setShowIntro] = useState(true);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{ ...styles.container, backgroundColor: theme?.colors.lightPink }}
+    >
       {showIntro ? (
         <IntroScreen onAnimationComplete={() => setShowIntro(false)} />
       ) : (
@@ -23,7 +27,6 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFEBEF",
     flex: 1,
   },
 });
