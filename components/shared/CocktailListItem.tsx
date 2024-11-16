@@ -28,6 +28,7 @@ export function CocktailListItem({ cocktail }: CocktailListItemProps) {
           backgroundColor: colors.light,
         }}
       >
+        <View />
         <Image
           source={{ uri: cocktail.strDrinkThumb }}
           style={{ ...styles.thumbnail, borderColor: colors.dark }}

@@ -142,6 +142,8 @@ const styles = StyleSheet.create({
     fontSize: 42,
     fontWeight: "bold",
     marginBottom: 10,
+    lineHeight: 40,
+    paddingTop: 10,
   },
   backToHome: {
     paddingHorizontal: 30,
