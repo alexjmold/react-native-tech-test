@@ -11,13 +11,13 @@ import Animated, {
   withSequence,
   withTiming,
 } from "react-native-reanimated";
+import { useTheme } from "../providers/ThemeProvider";
 
 const { width, height } = Dimensions.get("window");
 
 const WAVE_HEIGHT = 50;
-const ANIMATION_DURATION = 5000; // Duration of the entire animation
+const ANIMATION_DURATION = 4250; // Duration of the entire animation
 const END_POSITION = -100; // End position for the top of the wave wanimation
-const WAVE_PATH_COLOUR = "#f76f8e";
 
 interface IntroScreenProps {
   onAnimationComplete: () => void;
@@ -27,6 +27,7 @@ interface IntroScreenProps {
  * Liquid animation that rises on load
  */
 export default function IntroScreen({ onAnimationComplete }: IntroScreenProps) {
+  const theme = useTheme();
   const waveLength = width * 2;
   const waveOffset = useSharedValue(0);
   const martiniY = useSharedValue(100);
@@ -79,13 +80,13 @@ export default function IntroScreen({ onAnimationComplete }: IntroScreenProps) {
     );
 
     containerY.value = withDelay(
-      4000,
-      withTiming(-height, { duration: 1000, easing: Easing.in(Easing.sin) })
+      3000,
+      withTiming(-height, { duration: 1000, easing: Easing.in(Easing.exp) })
     );
 
     setTimeout(() => {
       onAnimationComplete();
-    }, 5500);
+    }, ANIMATION_DURATION);
   }, []);
 
   const wavePath = useDerivedValue(() => {
@@ -113,7 +114,7 @@ export default function IntroScreen({ onAnimationComplete }: IntroScreenProps) {
   return (
     <Animated.View style={{ ...styles.container, ...containerStyles }}>
       <Canvas style={{ width, height }}>
-        <Path path={wavePath} color={WAVE_PATH_COLOUR} />
+        <Path path={wavePath} color={theme.colors.darkPink} />
       </Canvas>
       <View style={styles.textContainer}>
         <Animated.View style={martiniStyles}>

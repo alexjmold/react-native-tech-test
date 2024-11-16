@@ -38,7 +38,7 @@ export default function CocktailListScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 24,
+    padding: 16,
   },
   title: {
     fontSize: 64,

@@ -1,11 +1,16 @@
 import { Stack } from "expo-router";
 
+import { CocktailTheme } from "@/theme";
+import ThemeProvider from "@/components/providers/ThemeProvider";
+
 export default function RootLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-      }}
-    />
+    <ThemeProvider theme={CocktailTheme}>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      />
+    </ThemeProvider>
   );
 }
