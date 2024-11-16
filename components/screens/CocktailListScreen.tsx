@@ -1,13 +1,15 @@
 import { View, StyleSheet, SafeAreaView, Text, FlatList } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-import { fetchRandomCocktails } from "@/api/cocktails";
+import { fetchRandomCocktails, searchCocktails } from "@/api/cocktails";
 import { CocktailSearchResult } from "@/types";
 import CocktailListItem from "../shared/CocktailListItem";
 import LoadingScreen from "./LoadingScreen";
 import ErrorScreen from "./ErrorScreen";
 import { useTheme } from "../providers/ThemeProvider";
 import { Martini } from "lucide-react-native";
+import CocktailSearch from "../shared/CocktailSearch";
+import EmptySearchResults from "../shared/EmptySearchResults";
 
 const MAX_REQUESTS = 3;
 
@@ -19,21 +21,30 @@ export default function CocktailListScreen() {
   const [requestCount, setRequestCount] = useState(0);
   const [loading, setLoading] = useState(true); // Loading set on intial load to show full page loading screen
   const [error, setError] = useState(false);
-  const [cocktails, setCocktails] = useState<CocktailSearchResult[]>([]);
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [randomCocktails, setRandomCocktails] = useState<
+    CocktailSearchResult[]
+  >([]);
+  const [searchResultCocktails, setSearchResultCocktails] = useState<
+    CocktailSearchResult[]
+  >([]);
 
-  const loadCocktails = async () => {
+  const loadRandomCocktails = async () => {
     try {
       if (requestCount > MAX_REQUESTS) {
         return;
       }
 
-      const { error, data } = await fetchRandomCocktails(cocktails);
+      const { error, data } = await fetchRandomCocktails(randomCocktails);
 
       if (error || !data) {
         throw new Error(error);
       }
 
-      setCocktails((existingCocktails) => [...existingCocktails, ...data]);
+      setRandomCocktails((existingCocktails) => [
+        ...existingCocktails,
+        ...data,
+      ]);
       setRequestCount((count) => count + 1);
     } catch {
       setError(true);
@@ -42,34 +53,48 @@ export default function CocktailListScreen() {
     }
   };
 
+  const handleSearch = async (value: string) => {
+    setLoading(true);
+
+    const { data, error } = await searchCocktails(value);
+
+    if (error) {
+      return;
+    }
+
+    setShowSearchResults(true);
+    setSearchResultCocktails(data);
+    setLoading(false);
+  };
+
+  const handleOnSearchClear = () => {
+    setSearchResultCocktails([]);
+    setShowSearchResults(false);
+  };
+
   useEffect(() => {
-    loadCocktails();
+    loadRandomCocktails();
   }, []);
 
-  const listHeader = () => (
-    <View style={styles.titleContainer}>
-      <View
-        style={{ ...styles.titleUnderline, backgroundColor: colors.pink }}
-      />
-      <Text style={{ ...styles.title, fontFamily: fonts.bold }}>Cocktails</Text>
-    </View>
-  );
+  const listFooter = () => {
+    if (showSearchResults && !searchResultCocktails.length) {
+      return <EmptySearchResults />;
+    }
 
-  const listFooter = () => (
-    <>
-      {requestCount > MAX_REQUESTS ? (
-        <Text style={{ ...styles.endOfResults, fontFamily: fonts.regular }}>
-          End of results
-        </Text>
-      ) : (
-        <LoadingScreen size="small" />
-      )}
-    </>
-  );
+    const isEndOfResults = requestCount > MAX_REQUESTS || showSearchResults;
 
-  if (loading) {
-    return <LoadingScreen />;
-  }
+    return (
+      <View>
+        {isEndOfResults ? (
+          <Text style={{ ...styles.endOfResults, fontFamily: fonts.regular }}>
+            End of results
+          </Text>
+        ) : (
+          <LoadingScreen size="small" />
+        )}
+      </View>
+    );
+  };
 
   if (error) {
     return <ErrorScreen />;
@@ -77,6 +102,21 @@ export default function CocktailListScreen() {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
+      <View>
+        <View style={styles.titleContainer}>
+          <View
+            style={{ ...styles.titleUnderline, backgroundColor: colors.pink }}
+          />
+          <Text style={{ ...styles.title, fontFamily: fonts.bold }}>
+            Cocktails
+          </Text>
+        </View>
+        <CocktailSearch
+          onSearch={handleSearch}
+          onClear={handleOnSearchClear}
+          showClear={showSearchResults}
+        />
+      </View>
       <View style={styles.backgroundIconContainer}>
         <Martini
           size={1000}
@@ -84,18 +124,21 @@ export default function CocktailListScreen() {
           color={colors.pink}
         />
       </View>
-      <FlatList
-        data={cocktails}
-        style={styles.list}
-        contentContainerStyle={styles.listContainer}
-        renderItem={({ item }) => (
-          <CocktailListItem key={item.idDrink} cocktail={item} />
-        )}
-        onEndReached={loadCocktails}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={listHeader}
-        ListFooterComponent={listFooter}
-      />
+      {loading ? (
+        <LoadingScreen />
+      ) : (
+        <FlatList
+          data={showSearchResults ? searchResultCocktails : randomCocktails}
+          style={styles.list}
+          contentContainerStyle={styles.listContainer}
+          renderItem={({ item }) => (
+            <CocktailListItem key={item.idDrink} cocktail={item} />
+          )}
+          onEndReached={loadRandomCocktails}
+          showsVerticalScrollIndicator={false}
+          ListFooterComponent={listFooter}
+        />
+      )}
     </SafeAreaView>
   );
 }
@@ -113,6 +156,7 @@ const styles = StyleSheet.create({
   backgroundIcon: {
     transform: [{ rotate: "20deg" }],
     opacity: 0.5,
+    zIndex: -1,
   },
   safeAreaView: {
     flex: 1,
