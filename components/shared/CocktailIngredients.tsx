@@ -10,12 +10,14 @@ interface CocktailIngredients {
 }
 
 export default function CocktailIngredients({ cocktail }: CocktailIngredients) {
-  const { colors } = useTheme();
+  const { colors, fonts } = useTheme();
   const ingredients = getCocktailIngredients(cocktail);
 
   return (
     <View style={{ ...styles.container, borderBottomColor: colors.pink }}>
-      <Text style={styles.title}>Ingredients 🍉</Text>
+      <Text style={{ ...styles.title, fontFamily: fonts.bold }}>
+        Ingredients 🍉
+      </Text>
       <View style={styles.listContainer}>
         {ingredients.map(({ ingredient, measure }) => (
           <View key={`${ingredient}-${measure}`} style={styles.listItem}>
@@ -24,7 +26,7 @@ export default function CocktailIngredients({ cocktail }: CocktailIngredients) {
             >
               <ArrowRight color={colors.dark} size={25} />
             </View>
-            <Text style={styles.listText}>
+            <Text style={{ ...styles.listText, fontFamily: fonts.regular }}>
               {measure && <Text>{measure}</Text>}
               {ingredient}
             </Text>

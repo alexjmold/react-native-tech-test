@@ -12,4 +12,8 @@ export const CocktailTheme: ApplicationTheme = {
     blue: "#0496FF",
     green: "#23F0C7",
   },
+  fonts: {
+    regular: "Lexend_400Regular",
+    bold: "Lexend_800ExtraBold",
+  },
 };

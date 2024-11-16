@@ -7,10 +7,18 @@ interface CocktailCategoryProps {
 }
 
 export default function CocktailCategory({ text }: CocktailCategoryProps) {
-  const { colors } = useTheme();
+  const { colors, fonts } = useTheme();
 
   return (
-    <Text style={{ ...styles.text, borderColor: colors.dark }}>{text}</Text>
+    <Text
+      style={{
+        ...styles.text,
+        borderColor: colors.dark,
+        fontFamily: fonts.regular,
+      }}
+    >
+      {text}
+    </Text>
   );
 }
 

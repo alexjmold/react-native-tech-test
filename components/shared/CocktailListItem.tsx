@@ -12,7 +12,7 @@ interface CocktailListItemProps {
 }
 
 export function CocktailListItem({ cocktail }: CocktailListItemProps) {
-  const { colors } = useTheme();
+  const { colors, fonts } = useTheme();
 
   return (
     <Link
@@ -33,8 +33,13 @@ export function CocktailListItem({ cocktail }: CocktailListItemProps) {
           style={{ ...styles.thumbnail, borderColor: colors.dark }}
         />
         <View style={styles.contentContainer}>
-          <Text style={styles.title}>{cocktail.strDrink}</Text>
-          <Text numberOfLines={1} style={styles.description}>
+          <Text style={{ ...styles.title, fontFamily: fonts.bold }}>
+            {cocktail.strDrink}
+          </Text>
+          <Text
+            numberOfLines={1}
+            style={{ ...styles.description, fontFamily: fonts.regular }}
+          >
             {cocktail.strInstructions}
           </Text>
           <DisplayPill text={cocktail.strCategory} />

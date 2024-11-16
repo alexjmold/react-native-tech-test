@@ -30,7 +30,7 @@ const contentOffset = width - 50;
 export default function CocktailDetailScreen({
   cocktail,
 }: CocktailDetailsScreenProps) {
-  const { colors } = useTheme();
+  const { colors, fonts } = useTheme();
   const navigation = useNavigation();
 
   const tags = useMemo(() => {
@@ -60,7 +60,13 @@ export default function CocktailDetailScreen({
       >
         <View style={{ ...styles.header, borderBottomColor: colors.pink }}>
           <View style={styles.headerContent}>
-            <Text style={{ ...styles.title, maxWidth: width - 80 }}>
+            <Text
+              style={{
+                ...styles.title,
+                maxWidth: width - 80,
+                fontFamily: fonts.bold,
+              }}
+            >
               {cocktail.strDrink}
             </Text>
             <CocktailDisplayType
@@ -69,7 +75,13 @@ export default function CocktailDetailScreen({
             />
           </View>
           <CocktailTags tags={tags} />
-          <Text style={{ ...styles.alcoholTag, color: colors.darkPink }}>
+          <Text
+            style={{
+              ...styles.alcoholTag,
+              color: colors.darkPink,
+              fontFamily: fonts.bold,
+            }}
+          >
             {cocktail.strAlcoholic}
           </Text>
         </View>
@@ -83,7 +95,13 @@ export default function CocktailDetailScreen({
           onPress={() => navigation.goBack()}
         >
           <ArrowLeft color={colors.light} size={25} />
-          <Text style={{ ...styles.backToHomeText, color: colors.light }}>
+          <Text
+            style={{
+              ...styles.backToHomeText,
+              color: colors.light,
+              fontFamily: fonts.bold,
+            }}
+          >
             Back to all cocktails
           </Text>
         </Pressable>
