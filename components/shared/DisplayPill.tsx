@@ -3,21 +3,19 @@ import { StyleSheet, Text } from "react-native";
 import { useTheme } from "../providers/ThemeProvider";
 
 interface CocktailCategoryProps {
-  category: string;
+  text: string;
 }
 
-export default function CocktailCategory({ category }: CocktailCategoryProps) {
+export default function CocktailCategory({ text }: CocktailCategoryProps) {
   const { colors } = useTheme();
 
   return (
-    <Text style={{ ...styles.category, borderColor: colors.dark }}>
-      {category}
-    </Text>
+    <Text style={{ ...styles.text, borderColor: colors.dark }}>{text}</Text>
   );
 }
 
 const styles = StyleSheet.create({
-  category: {
+  text: {
     alignSelf: "flex-start",
     paddingVertical: 4,
     paddingHorizontal: 12,

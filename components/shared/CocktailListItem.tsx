@@ -4,7 +4,7 @@ import { CocktailSearchResult } from "@/types";
 import { useTheme } from "../providers/ThemeProvider";
 import CocktailDisplayType from "./CocktailDisplayType";
 import { Link } from "expo-router";
-import CocktailCategory from "./CocktailCategory";
+import DisplayPill from "./DisplayPill";
 
 interface CocktailListItemProps {
   cocktail: CocktailSearchResult;
@@ -33,7 +33,7 @@ export default function CocktailListItem({ cocktail }: CocktailListItemProps) {
           <Text numberOfLines={1} style={styles.description}>
             {cocktail.strInstructions}
           </Text>
-          <CocktailCategory category={cocktail.strCategory} />
+          <DisplayPill text={cocktail.strCategory} />
         </View>
         <CocktailDisplayType
           glass={cocktail.strGlass}
