@@ -6,6 +6,7 @@ import { fetchCocktailDetails } from "@/api/cocktails";
 import { CocktailSearchResult } from "@/types";
 import LoadingScreen from "@/components/screens/LoadingScreen";
 import ErrorScreen from "@/components/screens/ErrorScreen";
+import { View } from "react-native";
 
 export default function CocktailPage() {
   const { cocktail } = useLocalSearchParams();
@@ -39,12 +40,12 @@ export default function CocktailPage() {
   }
 
   return (
-    <>
+    <View>
       {cocktailData ? (
         <CocktailDetailScreen cocktail={cocktailData} />
       ) : (
         <ErrorScreen />
       )}
-    </>
+    </View>
   );
 }

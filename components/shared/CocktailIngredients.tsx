@@ -37,7 +37,7 @@ export default function CocktailIngredients({ cocktail }: CocktailIngredients) {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 50,
+    marginVertical: 30,
   },
   title: {
     fontSize: 24,

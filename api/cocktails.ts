@@ -55,13 +55,13 @@ export const fetchCocktailDetails = async (
 
     const response = await axios.get(cocktailDetailUrl);
 
-    const [drinkData] = response.data.drinks;
+    const [cocktail] = response.data.drinks;
 
-    if (!drinkData) {
+    if (!cocktail) {
       throw new Error("No drink data available");
     }
 
-    return { data: drinkData };
+    return { data: cocktail };
   } catch {
     return { error: "Error retrieving cocktail" };
   }
