@@ -14,7 +14,7 @@ export default function CocktailIngredients({ cocktail }: CocktailIngredients) {
   const ingredients = getCocktailIngredients(cocktail);
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, borderBottomColor: colors.pink }}>
       <Text style={styles.title}>Ingredients 🍉</Text>
       <View style={styles.listContainer}>
         {ingredients.map(({ ingredient, measure }) => (
@@ -38,6 +38,8 @@ export default function CocktailIngredients({ cocktail }: CocktailIngredients) {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 30,
+    borderBottomWidth: 1,
+    paddingBottom: 24,
   },
   title: {
     fontSize: 24,

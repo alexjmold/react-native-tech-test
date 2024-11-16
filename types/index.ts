@@ -66,4 +66,5 @@ export interface CocktailSearchResult
   strGlass: string;
   strInstructions: string;
   strDrinkThumb: string;
+  strTags: string;
 }

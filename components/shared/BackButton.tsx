@@ -10,7 +10,7 @@ export default function BackButton() {
 
   return (
     <Pressable
-      style={{ ...styles.backButton, backgroundColor: colors.light }}
+      style={{ ...styles.backButton, backgroundColor: colors.lightPink }}
       onPress={() => navigation.goBack()}
     >
       <ArrowLeft size={30} color={colors.dark} />
@@ -29,5 +29,6 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    borderWidth: 1,
   },
 });
