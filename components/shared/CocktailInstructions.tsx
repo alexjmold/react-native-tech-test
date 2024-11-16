@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
+import { useTheme } from "../providers/ThemeProvider";
 
 interface CocktailInstructionsProps {
   instructions: string;
@@ -7,10 +8,16 @@ interface CocktailInstructionsProps {
 export default function CocktailInstructions({
   instructions,
 }: CocktailInstructionsProps) {
+  const { fonts } = useTheme();
+
   return (
     <View>
-      <Text style={styles.title}>How to make 🧑‍🍳</Text>
-      <Text style={styles.instructions}>{instructions}</Text>
+      <Text style={{ ...styles.title, fontFamily: fonts.bold }}>
+        How to make 🧑‍🍳
+      </Text>
+      <Text style={{ ...styles.instructions, fontFamily: fonts.regular }}>
+        {instructions}
+      </Text>
     </View>
   );
 }

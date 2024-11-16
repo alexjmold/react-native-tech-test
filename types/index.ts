@@ -10,8 +10,14 @@ export interface ApplicationThemeColors {
   green: string;
 }
 
+export interface ApplicationFonts {
+  regular: string;
+  bold: string;
+}
+
 export interface ApplicationTheme {
   colors: ApplicationThemeColors;
+  fonts: ApplicationFonts;
 }
 
 type MeasureKeys = `strMeasure${
