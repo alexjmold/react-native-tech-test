@@ -3,3 +3,6 @@ export const RANDOM_COCKTAIL_ENDPOINT =
 
 export const COCKTAIL_DETAILS_ENDPOINT =
   "https://www.thecocktaildb.com/api/json/v1/1/lookup.php";
+
+export const COCKTAIL_INGREDIENT_ENDPOINT =
+  "https://www.thecocktaildb.com/api/json/v1/1/search.php";
