@@ -1,9 +1,16 @@
+import { CocktailSearchResult } from "@/types";
 import { Text, SafeAreaView } from "react-native";
 
-export default function CocktailDetailScreen() {
+interface CocktailDetailsScreenProps {
+  cocktail: CocktailSearchResult;
+}
+
+export default function CocktailDetailScreen({
+  cocktail,
+}: CocktailDetailsScreenProps) {
   return (
     <SafeAreaView>
-      <Text>A cocktail detail screen!</Text>
+      <Text>{cocktail.strDrink}</Text>
     </SafeAreaView>
   );
 }

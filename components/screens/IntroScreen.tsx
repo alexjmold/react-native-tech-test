@@ -27,7 +27,7 @@ interface IntroScreenProps {
  * Liquid animation that rises on load
  */
 export default function IntroScreen({ onAnimationComplete }: IntroScreenProps) {
-  const theme = useTheme();
+  const { colors } = useTheme();
   const waveLength = width * 2;
   const waveOffset = useSharedValue(0);
   const martiniY = useSharedValue(100);
@@ -114,7 +114,7 @@ export default function IntroScreen({ onAnimationComplete }: IntroScreenProps) {
   return (
     <Animated.View style={{ ...styles.container, ...containerStyles }}>
       <Canvas style={{ width, height }}>
-        <Path path={wavePath} color={theme.colors.darkPink} />
+        <Path path={wavePath} color={colors.darkPink} />
       </Canvas>
       <View style={styles.textContainer}>
         <Animated.View style={martiniStyles}>

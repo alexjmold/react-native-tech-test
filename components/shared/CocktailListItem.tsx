@@ -1,9 +1,9 @@
 import { Text, StyleSheet, Pressable, Image, View } from "react-native";
-import { ArrowRight } from "lucide-react-native";
 
 import { CocktailSearchResult } from "@/types";
 import { useTheme } from "../providers/ThemeProvider";
 import CocktailDisplayType from "./CocktailDisplayType";
+import { Link } from "expo-router";
 
 interface CocktailListItemProps {
   cocktail: CocktailSearchResult;
@@ -13,27 +13,35 @@ export default function CocktailListItem({ cocktail }: CocktailListItemProps) {
   const theme = useTheme();
 
   return (
-    <Pressable
-      style={{ ...styles.pressable, backgroundColor: theme.colors.light }}
+    <Link
+      href={{
+        pathname: "/[cocktail]",
+        params: { cocktail: cocktail.idDrink },
+      }}
+      asChild
     >
-      <Image
-        source={{ uri: cocktail.strDrinkThumb }}
-        style={{ ...styles.thumbnail, borderColor: theme.colors.lightGrey }}
-      />
-      <View style={styles.contentContainer}>
-        <Text style={styles.title}>{cocktail.strDrink}</Text>
-        <Text numberOfLines={1} style={styles.description}>
-          {cocktail.strInstructions}
-        </Text>
-        <Text style={{ ...styles.category, borderColor: theme.colors.dark }}>
-          {cocktail.strCategory}
-        </Text>
-      </View>
-      <CocktailDisplayType
-        glass={cocktail.strGlass}
-        category={cocktail.strCategory}
-      />
-    </Pressable>
+      <Pressable
+        style={{ ...styles.pressable, backgroundColor: theme.colors.light }}
+      >
+        <Image
+          source={{ uri: cocktail.strDrinkThumb }}
+          style={{ ...styles.thumbnail, borderColor: theme.colors.lightGrey }}
+        />
+        <View style={styles.contentContainer}>
+          <Text style={styles.title}>{cocktail.strDrink}</Text>
+          <Text numberOfLines={1} style={styles.description}>
+            {cocktail.strInstructions}
+          </Text>
+          <Text style={{ ...styles.category, borderColor: theme.colors.dark }}>
+            {cocktail.strCategory}
+          </Text>
+        </View>
+        <CocktailDisplayType
+          glass={cocktail.strGlass}
+          category={cocktail.strCategory}
+        />
+      </Pressable>
+    </Link>
   );
 }
 
