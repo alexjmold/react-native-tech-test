@@ -1,16 +1,17 @@
 import { Text, StyleSheet, Pressable, Image, View } from "react-native";
+import { Link } from "expo-router";
 
 import { CocktailSearchResult } from "@/types";
 import { useTheme } from "../providers/ThemeProvider";
 import CocktailDisplayType from "./CocktailDisplayType";
-import { Link } from "expo-router";
 import DisplayPill from "./DisplayPill";
+import { memo } from "react";
 
 interface CocktailListItemProps {
   cocktail: CocktailSearchResult;
 }
 
-export default function CocktailListItem({ cocktail }: CocktailListItemProps) {
+export function CocktailListItem({ cocktail }: CocktailListItemProps) {
   const { colors } = useTheme();
 
   return (
@@ -47,6 +48,9 @@ export default function CocktailListItem({ cocktail }: CocktailListItemProps) {
   );
 }
 
+// Memoise our list item to be more performant in a FlatList context
+export default memo(CocktailListItem);
+
 const styles = StyleSheet.create({
   pressable: {
     display: "flex",
@@ -74,10 +78,9 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 18,
-    marginBottom: 2,
+    marginBottom: 4,
   },
   description: {
-    width: "auto",
     fontSize: 14,
     marginBottom: 10,
   },

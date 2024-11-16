@@ -6,11 +6,18 @@ import {
 } from "./constants";
 import { CocktailSearchResult } from "@/types";
 
-// Fetch a set amount of random drinks
-export const fetchRandomCocktails = async (count = 10) => {
+const FETCH_COUNT = 10;
+
+/**
+ * Fetch random cocktails from the API endpoint and merge
+ * these with any existing cocktails provided
+ */
+export const fetchRandomCocktails = async (
+  existingCocktails?: CocktailSearchResult[]
+) => {
   try {
     // Create an array of requests to fetch random cocktails
-    const cocktailPromises = Array.from({ length: count }).map(() =>
+    const cocktailPromises = Array.from({ length: FETCH_COUNT }).map(() =>
       axios.get(RANDOM_COCKTAIL_ENDPOINT)
     );
 
@@ -18,12 +25,16 @@ export const fetchRandomCocktails = async (count = 10) => {
       await Promise.all(cocktailPromises);
 
     // Map our responses into an array of valid cocktails
-    const allCocktails = responses
+    const newCocktails = responses
       .map(({ data }) => {
         const [randomDrink] = data.drinks;
         return randomDrink || null;
       })
       .filter((cocktail) => !!cocktail);
+
+    const allCocktails = existingCocktails
+      ? [...existingCocktails, ...newCocktails]
+      : newCocktails;
 
     // Ensure we have all unique cocktails
     const uniqueCocktailIds = Array.from(
