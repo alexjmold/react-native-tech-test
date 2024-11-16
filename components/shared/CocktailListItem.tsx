@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react-native";
 
 import { CocktailSearchResult } from "@/types";
 import { useTheme } from "../providers/ThemeProvider";
+import CocktailDisplayType from "./CocktailDisplayType";
 
 interface CocktailListItemProps {
   cocktail: CocktailSearchResult;
@@ -28,9 +29,10 @@ export default function CocktailListItem({ cocktail }: CocktailListItemProps) {
           {cocktail.strCategory}
         </Text>
       </View>
-      <View style={styles.arrow}>
-        <ArrowRight color={theme.colors.dark} />
-      </View>
+      <CocktailDisplayType
+        glass={cocktail.strGlass}
+        category={cocktail.strCategory}
+      />
     </Pressable>
   );
 }
@@ -75,16 +77,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     flexShrink: 1,
     borderWidth: 1,
-  },
-  arrow: {
-    width: 50,
-    height: 50,
-    backgroundColor: "#F43E69",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 100,
-    borderWidth: 2,
-    borderColor: "#000",
   },
 });

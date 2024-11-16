@@ -5,8 +5,11 @@ export const CocktailTheme: ApplicationTheme = {
     dark: "#000",
     light: "#fff",
     lightPink: "#FDECF2",
+    pink: "#F77896",
     darkPink: "#F43E69",
     yellow: "#FFBC42",
     lightGrey: "#ccc",
+    blue: "#0496FF",
+    green: "#23F0C7",
   },
 };
