@@ -1,6 +1,9 @@
 import axios from "axios";
 
-import { RANDOM_COCKTAIL_ENDPOINT } from "./constants";
+import {
+  COCKTAIL_DETAILS_ENDPOINT,
+  RANDOM_COCKTAIL_ENDPOINT,
+} from "./constants";
 import { CocktailSearchResult } from "@/types";
 
 // Fetch a set amount of random drinks
@@ -36,5 +39,30 @@ export const fetchRandomCocktails = async (count = 10) => {
     return { data: uniqueCocktails };
   } catch {
     return { error: "Error getting cocktails" };
+  }
+};
+
+// Fetch the details for a single cocktail by ID
+export const fetchCocktailDetails = async (
+  id: string
+): Promise<{ error?: string; data?: CocktailSearchResult }> => {
+  try {
+    if (!id) {
+      throw new Error("No cocktail ID was specified.");
+    }
+
+    const cocktailDetailUrl = `${COCKTAIL_DETAILS_ENDPOINT}?i=${id}`;
+
+    const response = await axios.get(cocktailDetailUrl);
+
+    const [drinkData] = response.data.drinks;
+
+    if (!drinkData) {
+      throw new Error("No drink data available");
+    }
+
+    return { data: drinkData };
+  } catch {
+    return { error: "Error retrieving cocktail" };
   }
 };

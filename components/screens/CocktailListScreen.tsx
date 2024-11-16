@@ -3,26 +3,46 @@ import { CocktailSearchResult } from "@/types";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, SafeAreaView, Text } from "react-native";
 import CocktailListItem from "../shared/CocktailListItem";
+import LoadingScreen from "./LoadingScreen";
+import ErrorScreen from "./ErrorScreen";
 
 /**
  * Loads and displays all cocktail list items
  */
 export default function CocktailListScreen() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [cocktails, setCocktails] = useState<CocktailSearchResult[]>([]);
 
   useEffect(() => {
     const loadCocktails = async () => {
-      const { error, data } = await fetchRandomCocktails();
+      try {
+        const { error, data } = await fetchRandomCocktails();
 
-      if (error || !data) {
-        return;
+        if (error || !data) {
+          throw new Error(error);
+        }
+
+        setCocktails(data);
+      } catch {
+        setError(true);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
       }
-
-      setCocktails(data);
     };
 
     loadCocktails();
   }, []);
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
+  if (error) {
+    return <ErrorScreen />;
+  }
 
   return (
     <SafeAreaView>

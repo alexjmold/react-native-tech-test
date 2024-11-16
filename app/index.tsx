@@ -7,17 +7,15 @@ import CocktailListScreen from "@/components/screens/CocktailListScreen";
 import { useTheme } from "@/components/providers/ThemeProvider";
 
 export default function Index() {
-  const theme = useTheme();
+  const { colors } = useTheme();
   const [showIntro, setShowIntro] = useState(true);
 
   return (
-    <View
-      style={{ ...styles.container, backgroundColor: theme?.colors.lightPink }}
-    >
+    <View style={{ ...styles.container, backgroundColor: colors.lightPink }}>
       {showIntro ? (
         <IntroScreen onAnimationComplete={() => setShowIntro(false)} />
       ) : (
-        <Animated.View entering={FadeIn}>
+        <Animated.View entering={FadeIn} style={styles.container}>
           <CocktailListScreen />
         </Animated.View>
       )}
