@@ -2,6 +2,7 @@ import axios from "axios";
 
 import {
   COCKTAIL_DETAILS_ENDPOINT,
+  COCKTAIL_SEARCH_ENDPOINT,
   RANDOM_COCKTAIL_ENDPOINT,
 } from "./constants";
 import { CocktailSearchResult } from "@/types";
@@ -75,5 +76,22 @@ export const fetchCocktailDetails = async (
     return { data: cocktail };
   } catch {
     return { error: "Error retrieving cocktail" };
+  }
+};
+
+// Get cocktails by search term
+export const searchCocktails = async (value: string) => {
+  try {
+    const searchUrl = `${COCKTAIL_SEARCH_ENDPOINT}?s=${value}`;
+
+    const response = await axios.get(searchUrl);
+
+    const { drinks } = response.data;
+
+    return {
+      data: drinks || [],
+    };
+  } catch {
+    return { error: "Failed to search results" };
   }
 };
