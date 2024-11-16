@@ -1,12 +1,17 @@
+export interface ApplicationThemeColors {
+  light: string;
+  dark: string;
+  lightPink: string;
+  pink: string;
+  darkPink: string;
+  yellow: string;
+  lightGrey: string;
+  blue: string;
+  green: string;
+}
+
 export interface ApplicationTheme {
-  colors: {
-    light: string;
-    dark: string;
-    lightPink: string;
-    darkPink: string;
-    yellow: string;
-    lightGrey: string;
-  };
+  colors: ApplicationThemeColors;
 }
 
 export interface CocktailSearchResult {
