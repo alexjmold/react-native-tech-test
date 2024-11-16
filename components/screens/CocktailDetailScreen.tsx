@@ -12,7 +12,7 @@ import { useTheme } from "../providers/ThemeProvider";
 import CocktailDisplayType from "../shared/CocktailDisplayType";
 import BackButton from "../shared/BackButton";
 import CocktailIngredients from "../shared/CocktailIngredients";
-import CocktailCategory from "../shared/CocktailCategory";
+import DisplayPill from "../shared/DisplayPill";
 import CocktailInstructions from "../shared/CocktailInstructions";
 
 interface CocktailDetailsScreenProps {
@@ -39,7 +39,7 @@ export default function CocktailDetailScreen({
           <View style={styles.header}>
             <View>
               <Text style={styles.title}>{cocktail.strDrink}</Text>
-              <CocktailCategory category={cocktail.strCategory} />
+              <DisplayPill text={cocktail.strCategory} />
             </View>
             <CocktailDisplayType
               glass={cocktail.strGlass}
