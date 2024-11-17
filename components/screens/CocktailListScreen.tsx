@@ -1,15 +1,15 @@
-import { View, StyleSheet, SafeAreaView, Text, FlatList } from "react-native";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import { fetchRandomCocktails, searchCocktails } from "@/api/cocktails";
 import { CocktailSearchResult } from "@/types";
-import CocktailListItem from "../shared/CocktailListItem";
-import LoadingScreen from "./LoadingScreen";
-import ErrorScreen from "./ErrorScreen";
-import { useTheme } from "../providers/ThemeProvider";
 import { Martini } from "lucide-react-native";
+import { useTheme } from "../providers/ThemeProvider";
+import CocktailListItem from "../shared/CocktailListItem";
 import CocktailSearch from "../shared/CocktailSearch";
 import EmptySearchResults from "../shared/EmptySearchResults";
+import ErrorScreen from "./ErrorScreen";
+import LoadingScreen from "./LoadingScreen";
 
 const MAX_REQUESTS = 3;
 
@@ -53,6 +53,7 @@ export default function CocktailListScreen() {
     }
   };
 
+  // Call our search results endpoint
   const handleSearch = async (value: string) => {
     if (!value) {
       return;
