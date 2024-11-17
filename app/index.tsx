@@ -1,10 +1,10 @@
-import { View, StyleSheet } from "react-native";
 import { useState } from "react";
+import { StyleSheet, View } from "react-native";
 
+import { useTheme } from "@/components/providers/ThemeProvider";
+import CocktailListScreen from "@/components/screens/CocktailListScreen";
 import IntroScreen from "@/components/screens/IntroScreen";
 import Animated, { FadeIn } from "react-native-reanimated";
-import CocktailListScreen from "@/components/screens/CocktailListScreen";
-import { useTheme } from "@/components/providers/ThemeProvider";
 
 export default function Index() {
   const { colors } = useTheme();

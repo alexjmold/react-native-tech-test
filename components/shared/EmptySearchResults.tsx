@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Search } from "lucide-react-native";
+
 import { useTheme } from "../providers/ThemeProvider";
 
 export default function EmptySearchResults() {
