@@ -15,9 +15,13 @@ export const getCocktailIngredients = (cocktail: CocktailSearchResult) => {
   const measures = getListedCocktailItems(cocktail, "strMeasure");
 
   return ingredients.map((ingredient, index) => {
-    return {
-      ingredient: ingredient,
-      measure: measures[index] || "",
-    };
+    const sanitisedingredient = ingredient ? ingredient.trim() : "";
+    const sanitisedMeasure = measures[index] ? measures[index].trim() : "";
+
+    if (sanitisedMeasure) {
+      return `${sanitisedMeasure} ${sanitisedingredient}`;
+    }
+
+    return sanitisedingredient;
   });
 };
