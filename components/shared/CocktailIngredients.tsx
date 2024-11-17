@@ -19,16 +19,15 @@ export default function CocktailIngredients({ cocktail }: CocktailIngredients) {
         Ingredients 🍉
       </Text>
       <View style={styles.listContainer}>
-        {ingredients.map(({ ingredient, measure }) => (
-          <View key={`${ingredient}-${measure}`} style={styles.listItem}>
+        {ingredients.map((ingredientText) => (
+          <View key={ingredientText} style={styles.listItem}>
             <View
               style={{ ...styles.arrowContainer, backgroundColor: colors.pink }}
             >
               <ArrowRight color={colors.dark} size={25} />
             </View>
             <Text style={{ ...styles.listText, fontFamily: fonts.regular }}>
-              {measure && <Text>{measure}</Text>}
-              {ingredient}
+              {ingredientText}
             </Text>
           </View>
         ))}
