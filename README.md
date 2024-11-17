@@ -26,6 +26,22 @@ If there's any issues when trying to run this project, please reach out to me an
 
 I appreciate your time, and hope to hear from you soon!
 
+# Running the project
+
+## Get started
+
+1. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+2. Start the app
+
+   ```bash
+    npm start
+   ```
+
 ---
 
 # react-native-tech-test
