@@ -130,7 +130,7 @@ export default function CocktailListScreen() {
         <View style={styles.contentContainer}>
           <View style={styles.backgroundIconContainer}>
             <Martini
-              size={600}
+              size={480}
               style={{ ...styles.backgroundIcon }}
               color={colors.pink}
             />
