@@ -31,7 +31,7 @@ export default function CocktailListScreen() {
 
   const loadRandomCocktails = async () => {
     try {
-      if (requestCount > MAX_REQUESTS) {
+      if (requestCount > MAX_REQUESTS || showSearchResults) {
         return;
       }
 
