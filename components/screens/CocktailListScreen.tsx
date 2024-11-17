@@ -54,6 +54,10 @@ export default function CocktailListScreen() {
   };
 
   const handleSearch = async (value: string) => {
+    if (!value) {
+      return;
+    }
+
     setLoading(true);
 
     const { data, error } = await searchCocktails(value);
@@ -102,7 +106,9 @@ export default function CocktailListScreen() {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
-      <View>
+      <View
+        style={{ borderBottomColor: colors.darkPink, borderBottomWidth: 1 }}
+      >
         <View style={styles.titleContainer}>
           <View
             style={{ ...styles.titleUnderline, backgroundColor: colors.pink }}
@@ -117,27 +123,29 @@ export default function CocktailListScreen() {
           showClear={showSearchResults}
         />
       </View>
-      <View style={styles.backgroundIconContainer}>
-        <Martini
-          size={1000}
-          style={{ ...styles.backgroundIcon }}
-          color={colors.pink}
-        />
-      </View>
       {loading ? (
         <LoadingScreen />
       ) : (
-        <FlatList
-          data={showSearchResults ? searchResultCocktails : randomCocktails}
-          style={styles.list}
-          contentContainerStyle={styles.listContainer}
-          renderItem={({ item }) => (
-            <CocktailListItem key={item.idDrink} cocktail={item} />
-          )}
-          onEndReached={loadRandomCocktails}
-          showsVerticalScrollIndicator={false}
-          ListFooterComponent={listFooter}
-        />
+        <View style={styles.contentContainer}>
+          <View style={styles.backgroundIconContainer}>
+            <Martini
+              size={600}
+              style={{ ...styles.backgroundIcon }}
+              color={colors.pink}
+            />
+          </View>
+          <FlatList
+            data={showSearchResults ? searchResultCocktails : randomCocktails}
+            style={styles.list}
+            contentContainerStyle={styles.listContainer}
+            renderItem={({ item }) => (
+              <CocktailListItem key={item.idDrink} cocktail={item} />
+            )}
+            onEndReached={loadRandomCocktails}
+            showsVerticalScrollIndicator={false}
+            ListFooterComponent={listFooter}
+          />
+        </View>
       )}
     </SafeAreaView>
   );
@@ -155,7 +163,7 @@ const styles = StyleSheet.create({
   },
   backgroundIcon: {
     transform: [{ rotate: "20deg" }],
-    opacity: 0.5,
+    opacity: 0.8,
     zIndex: -1,
   },
   safeAreaView: {
@@ -184,6 +192,10 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
     padding: 16,
+  },
+  contentContainer: {
+    flex: 1,
+    position: "relative",
   },
   endOfResults: {
     textAlign: "center",

@@ -9,6 +9,9 @@ import { CocktailSearchResult } from "@/types";
 
 const FETCH_COUNT = 10;
 
+// Delay response to show loading states
+const delayResponse = () => new Promise((resolve) => setTimeout(resolve, 1000));
+
 /**
  * Fetch random cocktails from the API endpoint and merge
  * these with any existing cocktails provided
@@ -47,6 +50,8 @@ export const fetchRandomCocktails = async (
         return allCocktails.find(({ idDrink }) => uniqueId === idDrink);
       })
       .filter((cocktail) => !!cocktail);
+
+    await delayResponse();
 
     return { data: uniqueCocktails };
   } catch {
@@ -87,6 +92,8 @@ export const searchCocktails = async (value: string) => {
     const response = await axios.get(searchUrl);
 
     const { drinks } = response.data;
+
+    await delayResponse();
 
     return {
       data: drinks || [],
